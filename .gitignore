@@ -1,0 +1,21 @@
+# JavaScript
+node_modules/
+dist/
+.vite/
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+# Datos y configuración local
+*.sqlite3
+*.sqlite3-journal
+.env
+.env.*
+!.env.example
+# Archivos temporales
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
