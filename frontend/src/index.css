@@ -17,17 +17,21 @@
 
 :root {
   font-family: system-ui, sans-serif;
-  --background: #fafafa;
-  --foreground: #171717;
+  --background: #020617;
+  --foreground: #f8fafc;
   --primary: #6d28d9;
   --primary-foreground: #ffffff;
   --secondary: #e5e5e5;
   --secondary-foreground: #171717;
-  --accent: #ede9fe;
-  --accent-foreground: #4c1d95;
+  --accent: #1e293b;
+  --accent-foreground: #c4b5fd;
   --destructive: #dc2626;
   --ring: #8b5cf6;
   --input: #d4d4d4;
 }
 
 body { margin: 0; background: var(--background); color: var(--foreground); }
+
+html { scroll-behavior: smooth; }
+a { text-decoration: none; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
