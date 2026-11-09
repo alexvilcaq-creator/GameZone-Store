@@ -16,10 +16,10 @@
 }
 
 :root {
-  font-family: system-ui, sans-serif;
-  --background: #020617;
+  font-family: "Segoe UI", Inter, system-ui, sans-serif;
+  --background: #060810;
   --foreground: #f8fafc;
-  --primary: #6d28d9;
+  --primary: #7c3aed;
   --primary-foreground: #ffffff;
   --secondary: #e5e5e5;
   --secondary-foreground: #171717;
@@ -35,3 +35,13 @@ body { margin: 0; background: var(--background); color: var(--foreground); }
 html { scroll-behavior: smooth; }
 a { text-decoration: none; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.site-container { width: min(1280px, 100% - 48px); margin-inline: auto; }
+.footer-title { margin-bottom: 18px; font-size: 12px; font-weight: 700; color: #e2e8f0; }
+.footer-links { display: grid; gap: 12px; font-size: 12px; color: #64748b; }
+a { transition: color .2s; }
+nav a:hover, .footer-links a:hover { color: #c4b5fd; }
+a:focus-visible { outline: 2px solid #a78bfa; outline-offset: 5px; border-radius: 4px; }
+.product-photo { display: block; }
+@media (max-width: 639px) { .site-container { width: calc(100% - 32px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
