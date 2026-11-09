@@ -1,15 +1,14 @@
+import { Grid2X2, Gamepad2, Joystick, Keyboard } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const categories = ['Todas', 'Videojuegos', 'Controles', 'Periféricos']
+const categories = [ ['Todas', Grid2X2], ['Videojuegos', Gamepad2], ['Controles', Joystick], ['Periféricos', Keyboard] ]
 
 export default function CategoryFilter({ selectedCategory, onCategoryChange }) {
   return (
-    <div id="categorias" className="scroll-mt-6 space-y-4">
-      <h2 className="text-sm font-semibold uppercase tracking-widest text-slate-400">Explora por categoría</h2>
-      <div role="group" aria-label="Filtrar por categoría" className="flex flex-wrap gap-3">
-        {categories.map((category) => (
-          <Button key={category} variant={selectedCategory === category ? 'default' : 'outline'} aria-pressed={selectedCategory === category} onClick={() => onCategoryChange(category)}>
-            {category}
+    <div id="categorias" className="scroll-mt-6 border-y border-white/10 py-4">
+      <div role="group" aria-label="Filtrar por categoría" className="flex flex-wrap gap-2">
+        {categories.map(([category, Icon]) => (
+          <Button key={category} variant={selectedCategory === category ? 'default' : 'ghost'} aria-pressed={selectedCategory === category} onClick={() => onCategoryChange(category)} className={`rounded-full px-4 text-xs sm:text-sm ${selectedCategory === category ? 'shadow-[0_0_20px_-8px_#a78bfa]' : 'text-slate-400 hover:text-white'}`}>
+            <Icon aria-hidden="true" />{category}
           </Button>
         ))}
       </div>
