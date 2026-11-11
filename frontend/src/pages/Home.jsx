@@ -4,7 +4,7 @@ import ProductList from '@/components/ProductList'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 
-export default function Home({ products, selectedCategory, onCategoryChange }) {
+export default function Home({ products, selectedCategory, selectedCategoryName, onCategoryChange, categories, loading, error, emptyCatalog, onRefresh }) {
   return (
     <>
       <main id="inicio" className="site-container">
@@ -24,12 +24,21 @@ export default function Home({ products, selectedCategory, onCategoryChange }) {
           {[ [Gamepad2, 'Universos por descubrir', 'Videojuegos para tu próxima aventura'], [Keyboard, 'Tu setup, tu estilo', 'Controles y periféricos gaming'], [Zap, 'Listo para el siguiente nivel', 'Encuentra tu próximo upgrade'] ].map(([Icon,title,description]) => <div key={title} className="flex items-center gap-3"><Icon aria-hidden="true" className="size-5 shrink-0 text-violet-400" /><div><p className="mb-1 font-semibold text-slate-200">{title}</p><p className="text-[11px] text-slate-500">{description}</p></div></div>)}
         </div>
         <section id="productos" aria-labelledby="catalog-title" className="scroll-mt-6 space-y-6">
-          <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">Seleccionados para ti</p><h2 id="catalog-title" className="text-2xl font-bold tracking-tight sm:text-3xl">Productos destacados<span className="text-violet-400">.</span></h2></div><p role="status" aria-live="polite" className="text-xs text-slate-500">{products.length} productos · {selectedCategory}</p></div>
-          <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
-          <ProductList products={products} />
+          <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">Seleccionados para ti</p><h2 id="catalog-title" className="text-2xl font-bold tracking-tight sm:text-3xl">Productos destacados<span className="text-violet-400">.</span></h2></div><p role="status" aria-live="polite" className="text-xs text-slate-500">{loading ? 'Cargando catálogo…' : error ? 'Servicio no disponible' : `${products.length} productos · ${selectedCategoryName}`}</p></div>
+          <Button variant="outline" onClick={onRefresh} disabled={loading} className="rounded-full">{error ? 'Reintentar' : 'Actualizar catálogo'}</Button>
+          {loading ? (
+            <p role="status" className="rounded-xl border border-white/10 p-8 text-center text-slate-300">Cargando catálogo…</p>
+          ) : error ? (
+            <p role="alert" className="rounded-xl border border-red-400/30 bg-red-950/20 p-6 text-red-200">{error}</p>
+          ) : (
+            <>
+              <CategoryFilter categories={categories} selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
+              <ProductList products={products} emptyCatalog={emptyCatalog} />
+            </>
+          )}
         </section>
         <section id="ofertas" className="mt-10 flex scroll-mt-6 flex-col items-start justify-between gap-6 rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-950/60 to-blue-950/30 p-7 sm:flex-row sm:items-center sm:p-9">
-          <div><p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-violet-300"><Sparkles aria-hidden="true" className="size-4" />Ofertas y selección</p><h2 className="text-2xl font-bold">Un gran setup empieza con un buen accesorio.</h2><p className="mt-3 text-sm text-slate-400">Accesorios desde S/ 79.90. Precios referenciales; sin descuentos vigentes.</p></div>
+          <div><p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-violet-300"><Sparkles aria-hidden="true" className="size-4" />Ofertas y selección</p><h2 className="text-2xl font-bold">Un gran setup empieza con un buen accesorio.</h2><p className="mt-3 text-sm text-slate-400">Descubre la selección del catálogo. Precios referenciales; sin descuentos vigentes.</p></div>
           <Button asChild variant="outline" className="shrink-0 rounded-full border-violet-400/40"><a href="#productos">Ver catálogo <ArrowRight aria-hidden="true" /></a></Button>
         </section>
       </main>
