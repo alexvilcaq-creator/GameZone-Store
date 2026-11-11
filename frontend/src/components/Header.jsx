@@ -3,6 +3,7 @@ import { Gamepad2, Search, Sparkles } from 'lucide-react'
 export default function Header() {
   return (
     <header className="border-b border-white/10 bg-black">
+      <a href="#productos" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-violet-700 focus:px-5 focus:py-3 focus:text-white">Saltar al catálogo</a>
       <div className="border-b border-white/5 bg-violet-500/5 px-4 py-2 text-center text-[10px] font-semibold tracking-[0.18em] text-violet-200 sm:text-xs">TU UNIVERSO GAMING. EN UN SOLO LUGAR.</div>
       <div className="site-container flex flex-wrap items-center justify-between gap-x-8 gap-y-5 py-5">
         <a href="#inicio" aria-label="GameZone Store, inicio" className="flex shrink-0 items-center gap-2.5">

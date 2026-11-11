@@ -38,10 +38,14 @@ a { text-decoration: none; }
 
 .site-container { width: min(1280px, 100% - 48px); margin-inline: auto; }
 .footer-title { margin-bottom: 18px; font-size: 12px; font-weight: 700; color: #e2e8f0; }
-.footer-links { display: grid; gap: 12px; font-size: 12px; color: #64748b; }
+.footer-links { display: grid; gap: 12px; font-size: 12px; color: #94a3b8; }
 a { transition: color .2s; }
 nav a:hover, .footer-links a:hover { color: #c4b5fd; }
 a:focus-visible { outline: 2px solid #a78bfa; outline-offset: 5px; border-radius: 4px; }
 .product-photo { display: block; }
 @media (max-width: 639px) { .site-container { width: calc(100% - 32px); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; } }
+
+/* Ajustes de accesibilidad y legibilidad del Ejercicio 06. */
+nav a { display: inline-flex; align-items: center; min-height: 44px; }
+#productos:focus-visible { outline: 2px solid #a78bfa; outline-offset: 8px; border-radius: 8px; }
