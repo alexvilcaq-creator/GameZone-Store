@@ -141,3 +141,8 @@ React ahora consulta productos y categorías de Django mediante `src/services/ap
 Inicia Django en `127.0.0.1:8000` y Vite en el puerto `5173`. Puedes copiar `frontend/.env.example` a `.env.local` para configurar `VITE_API_URL`; no sobrescribas una configuración local existente. Instala las dependencias actualizadas con `python -m pip install -r requirements.txt` desde backend. CORS permite únicamente `localhost:5173` y `127.0.0.1:5173` sobre `/api/`.
 
 Consulta [Ejercicio 05: configuración, pruebas y evidencias](docs/EJERCICIO_05.md). Una base SQLite nueva requiere ingresar los datos desde Admin. El frontend muestra un mensaje de catálogo vacío cuando no hay productos; no carga datos simulados automáticamente.
+
+
+## Ejercicio 06: personalización y verificación
+
+Se revisaron la identidad visual y la organización, y se mejoraron contraste, acceso por teclado, tamaño táctil de filtros y ajuste de textos largos. Se conservan el rediseño y la integración REST. Consulta [Ejercicio 06: verificaciones, limitaciones y evidencias](docs/EJERCICIO_06.md), que incluye las funciones futuras de comercio electrónico solo como planificación.

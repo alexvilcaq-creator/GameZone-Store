@@ -11,7 +11,7 @@ export default function CategoryFilter({ categories, selectedCategory, onCategor
           const selected = selectedCategory === category.id
           const Icon = category.id === null ? Grid2X2 : Gamepad2
           return (
-            <Button key={category.id ?? 'todas'} variant={selected ? 'default' : 'ghost'} aria-pressed={selected} onClick={() => onCategoryChange(category.id)} className={`rounded-full px-4 text-xs sm:text-sm ${selected ? 'shadow-[0_0_20px_-8px_#a78bfa]' : 'text-slate-400 hover:text-white'}`}>
+            <Button key={category.id ?? 'todas'} variant={selected ? 'default' : 'ghost'} aria-pressed={selected} aria-controls="catalogo-resultados" onClick={() => onCategoryChange(category.id)} className={`min-h-11 rounded-full px-4 text-xs sm:text-sm ${selected ? 'shadow-[0_0_20px_-8px_#a78bfa]' : 'text-slate-400 hover:text-white'}`}>
               <Icon aria-hidden="true" />{category.nombre}
             </Button>
           )
