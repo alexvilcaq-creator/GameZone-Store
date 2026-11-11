@@ -132,3 +132,12 @@ El backend incluye la aplicación `catalogo`, los modelos Categoria y Producto, 
 Desde `backend`, con el entorno virtual activado, ejecutar `python manage.py migrate`, `python manage.py createsuperuser` y `python manage.py runserver`. Ingresar los datos desde `/admin/`. La base SQLite es local y no se incluye en Git.
 
 Consulta [Ejercicio 04: instalación, datos de ejemplo, pruebas y evidencias](docs/EJERCICIO_04.md). El frontend todavía no consume estos servicios.
+
+
+## Ejercicio 05: integración del catálogo
+
+React ahora consulta productos y categorías de Django mediante `src/services/api.js`. Los filtros usan los ids recibidos, y el catálogo incluye carga, error, estados vacíos y Actualizar catálogo. Los datos simulados anteriores ya no se importan para mostrar productos.
+
+Inicia Django en `127.0.0.1:8000` y Vite en el puerto `5173`. Puedes copiar `frontend/.env.example` a `.env.local` para configurar `VITE_API_URL`; no sobrescribas una configuración local existente. Instala las dependencias actualizadas con `python -m pip install -r requirements.txt` desde backend. CORS permite únicamente `localhost:5173` y `127.0.0.1:5173` sobre `/api/`.
+
+Consulta [Ejercicio 05: configuración, pruebas y evidencias](docs/EJERCICIO_05.md). Una base SQLite nueva requiere ingresar los datos desde Admin. El frontend muestra un mensaje de catálogo vacío cuando no hay productos; no carga datos simulados automáticamente.
