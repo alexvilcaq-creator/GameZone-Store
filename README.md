@@ -120,3 +120,15 @@ shadcn/ui incorpora el código de sus componentes al proyecto. `components.json`
 Referencias oficiales: [Tailwind con Vite](https://tailwindcss.com/docs/installation/using-vite), [shadcn/ui con Vite](https://ui.shadcn.com/docs/installation/vite) y [código oficial del botón](https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/new-york-v4/ui/button.tsx). Las páginas web directas fueron bloqueadas por la red del entorno; se consultaron las instrucciones de Vite de shadcn/ui y el botón desde su repositorio oficial.
 
 Consulta los [resultados y evidencias del Ejercicio 02](docs/EJERCICIO_02.md).
+
+
+## Ejercicio 04: catálogo y servicios REST
+
+El backend incluye la aplicación `catalogo`, los modelos Categoria y Producto, su administración y dos servicios JSON de solo lectura:
+
+- `GET /api/categorias/`
+- `GET /api/productos/`
+
+Desde `backend`, con el entorno virtual activado, ejecutar `python manage.py migrate`, `python manage.py createsuperuser` y `python manage.py runserver`. Ingresar los datos desde `/admin/`. La base SQLite es local y no se incluye en Git.
+
+Consulta [Ejercicio 04: instalación, datos de ejemplo, pruebas y evidencias](docs/EJERCICIO_04.md). El frontend todavía no consume estos servicios.
