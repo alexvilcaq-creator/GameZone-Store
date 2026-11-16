@@ -146,3 +146,15 @@ Consulta [Ejercicio 05: configuración, pruebas y evidencias](docs/EJERCICIO_05.
 ## Ejercicio 06: personalización y verificación
 
 Se revisaron la identidad visual y la organización, y se mejoraron contraste, acceso por teclado, tamaño táctil de filtros y ajuste de textos largos. Se conservan el rediseño y la integración REST. Consulta [Ejercicio 06: verificaciones, limitaciones y evidencias](docs/EJERCICIO_06.md), que incluye las funciones futuras de comercio electrónico solo como planificación.
+
+
+## Inventario, búsqueda, promociones y recomendaciones
+
+El catálogo incluye búsqueda por nombre, descripción o categoría combinable con los filtros; estado de stock; descuentos calculados en Django; sección de ofertas y recomendaciones por reglas. El personal administra existencias y porcentajes desde Django Admin. Ejecuta `python manage.py migrate` para aplicar la nueva migración. Los descuentos existentes comienzan en 0, por lo que debes configurarlos para que aparezcan promociones.
+
+Consulta [el procedimiento, objetivos, pruebas y capturas](docs/PROCEDIMIENTO_COMERCIO.md). Las evidencias están en `docs/evidencias/`. Para verificar: `npm test`, `npm run build` y `npm run lint` desde frontend; `python manage.py check` y `python manage.py test catalogo` desde backend. No se implementaron compras, pagos ni carrito.
+
+
+## Experiencia visual premium
+
+El frontend conserva inventario, búsqueda, promociones y recomendaciones e incorpora una presentación más compacta, recursos locales para las nueve ilustraciones conocidas, estados de consulta y navegación accesible. Consulta [la documentación y evidencias antes/después](docs/MEJORA_VISUAL_PREMIUM.md). Las imágenes son generadas para productos ficticios y no se modifican los datos existentes.
