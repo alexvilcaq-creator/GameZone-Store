@@ -1,6 +1,6 @@
 import { Gamepad2, Search, Sparkles } from 'lucide-react'
 
-export default function Header() {
+export default function Header({ searchTerm, onSearchChange }) {
   return (
     <header className="border-b border-white/10 bg-black">
       <a href="#productos" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-violet-700 focus:px-5 focus:py-3 focus:text-white">Saltar al catálogo</a>
@@ -15,7 +15,7 @@ export default function Header() {
         </nav>
         <div className="relative order-4 w-full sm:order-none sm:w-auto">
           <Search className="absolute left-3 top-3 size-4 text-slate-500" aria-hidden="true" />
-          <input type="search" disabled aria-label="Búsqueda de productos, próximamente" placeholder="Buscar productos · próximamente" className="h-10 w-full sm:w-64 rounded-full border border-white/15 bg-white/5 pl-9 pr-3 text-xs text-slate-400 placeholder:text-slate-500 disabled:cursor-not-allowed" />
+          <input type="search" value={searchTerm} onChange={(event) => onSearchChange(event.target.value)} aria-label="Buscar productos" aria-controls="catalogo-resultados" placeholder="Buscar productos…" className="h-10 w-full sm:w-64 rounded-full border border-white/15 bg-white/5 pl-9 pr-3 text-xs text-slate-400 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-violet-400" />
         </div>
       </div>
     </header>

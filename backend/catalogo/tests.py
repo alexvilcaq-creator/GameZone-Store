@@ -94,7 +94,7 @@ class ListadosTests(APITestCase):
             "descripcion": "Control de prueba", "precio": "149.90",
             "imagen_url": "https://example.com/control.svg",
             "cantidad_disponible": 5, "categoria": self.categoria.pk,
-            "categoria_nombre": "Controles",
+            "categoria_nombre": "Controles", "descuento_porcentaje": 0, "precio_final": "149.90",
         }])
 
     def test_listados_vacios(self):
@@ -115,3 +115,28 @@ class ListadosTests(APITestCase):
                     self.assertEqual(response.status_code, 405)
         self.assertEqual(Producto.objects.count(), 1)
         self.assertEqual(Categoria.objects.count(), 1)
+
+
+class PromocionesTests(TestCase):
+    def setUp(self):
+        self.categoria = Categoria.objects.create(nombre="Pruebas")
+
+    def test_calculo_decimal_y_redondeo(self):
+        p = Producto(**producto_data(self.categoria), descuento_porcentaje=15)
+        self.assertEqual(p.precio_final, Decimal("127.42"))
+
+    def test_descuento_invalido_no_se_guarda(self):
+        for valor in (-1, 101):
+            with self.subTest(valor=valor):
+                p = Producto(**producto_data(self.categoria), descuento_porcentaje=valor)
+                with self.assertRaises(ValidationError):
+                    p.full_clean()
+                with self.assertRaises(IntegrityError), transaction.atomic():
+                    p.save()
+
+    def test_descuentos_limite(self):
+        p = Producto(**producto_data(self.categoria), descuento_porcentaje=100)
+        p.full_clean()
+        self.assertEqual(p.precio_final, Decimal("0.00"))
+        p.descuento_porcentaje = 0
+        self.assertEqual(p.precio_final, p.precio)

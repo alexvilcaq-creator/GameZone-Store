@@ -4,7 +4,7 @@ import ProductList from '@/components/ProductList'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 
-export default function Home({ products, selectedCategory, selectedCategoryName, onCategoryChange, categories, loading, error, emptyCatalog, onRefresh }) {
+export default function Home({ products, selectedCategory, selectedCategoryName, onCategoryChange, categories, loading, error, emptyCatalog, onRefresh, searchTerm, onClearFilters, recommendations, offers }) {
   return (
     <>
       <main id="inicio" className="site-container">
@@ -25,6 +25,7 @@ export default function Home({ products, selectedCategory, selectedCategoryName,
         </div>
         <section id="productos" aria-labelledby="catalog-title" tabIndex={-1} className="scroll-mt-6 space-y-6">
           <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="mb-2 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">Seleccionados para ti</p><h2 id="catalog-title" className="text-2xl font-bold tracking-tight sm:text-3xl">Productos destacados<span className="text-violet-400">.</span></h2></div><p role="status" aria-live="polite" className="text-xs text-slate-400">{loading ? 'Consultando servicios…' : error ? 'Servicio no disponible' : `${products.length} productos · ${selectedCategoryName}`}</p></div>
+          <Button variant="ghost" onClick={onClearFilters} disabled={!searchTerm && selectedCategory === null} className="mr-3 rounded-full">Limpiar filtros</Button>
           <Button variant="outline" onClick={onRefresh} disabled={loading} className="rounded-full">{error ? 'Reintentar' : 'Actualizar catálogo'}</Button>
           <div id="catalogo-resultados" aria-busy={loading}>
             {loading ? (
@@ -34,15 +35,24 @@ export default function Home({ products, selectedCategory, selectedCategoryName,
             ) : (
               <>
                 <CategoryFilter categories={categories} selectedCategory={selectedCategory} onCategoryChange={onCategoryChange} />
-                <ProductList products={products} emptyCatalog={emptyCatalog} />
+                {searchTerm && <p className="my-4 break-words text-sm text-slate-300">Resultados para: “{searchTerm}”</p>}
+                <ProductList products={products} emptyCatalog={emptyCatalog} emptyMessage={!emptyCatalog && searchTerm ? 'No hay productos que coincidan con tu búsqueda y categoría.' : undefined} />
               </>
             )}
           </div>
         </section>
-        <section id="ofertas" className="mt-10 flex scroll-mt-6 flex-col items-start justify-between gap-6 rounded-2xl border border-violet-500/20 bg-gradient-to-r from-violet-950/60 to-blue-950/30 p-7 sm:flex-row sm:items-center sm:p-9">
-          <div><p className="mb-3 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-violet-300"><Sparkles aria-hidden="true" className="size-4" />Ofertas y selección</p><h2 className="text-2xl font-bold">Un gran setup empieza con un buen accesorio.</h2><p className="mt-3 text-sm text-slate-400">Descubre la selección del catálogo. Precios referenciales; sin descuentos vigentes.</p></div>
-          <Button asChild variant="outline" className="shrink-0 rounded-full border-violet-400/40"><a href="#productos">Ver catálogo <ArrowRight aria-hidden="true" /></a></Button>
-        </section>
+        {!loading && !error && (
+          <>
+            <section id="ofertas" aria-labelledby="offers-title" className="mt-12 scroll-mt-6 space-y-6 rounded-2xl border border-violet-500/20 bg-violet-950/20 p-5 sm:p-8">
+              <div><p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-violet-300"><Sparkles aria-hidden="true" className="size-4" />Más para tu próxima partida</p><h2 id="offers-title" className="text-2xl font-bold">Promociones y descuentos</h2><p className="mt-2 text-sm text-slate-400">Descuentos configurados por la tienda sobre el precio de catálogo. Solo productos con stock.</p></div>
+              <ProductList products={offers} emptyMessage="No hay promociones activas con stock en este momento." />
+            </section>
+            <section id="recomendados" aria-labelledby="recommended-title" className="mt-12 space-y-6">
+              <div><h2 id="recommended-title" className="text-2xl font-bold">Recomendados para ti</h2><p className="mt-2 text-sm text-slate-400">{selectedCategory === null ? 'Selección con stock, priorizando descuentos y disponibilidad.' : `Productos de ${selectedCategoryName} con stock, priorizando descuentos y disponibilidad.`}</p></div>
+              <ProductList products={recommendations} emptyMessage="No hay recomendaciones con stock para esta selección." />
+            </section>
+          </>
+        )}
       </main>
       <Footer />
     </>

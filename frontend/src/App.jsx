@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Header from '@/components/Header'
 import Home from '@/pages/Home'
+import { filtrarProductos, recomendarProductos } from '@/lib/catalogo'
 import { obtenerCategorias, obtenerProductos } from '@/services/api'
 
 export default function App() {
@@ -8,6 +9,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [reload, setReload] = useState(0)
 
   useEffect(() => {
@@ -39,15 +41,16 @@ export default function App() {
     return () => controller.abort()
   }, [reload])
 
-  const filteredProducts = selectedCategory === null
-    ? catalogo.products
-    : catalogo.products.filter((product) => product.categoria === selectedCategory)
+  const filteredProducts = filtrarProductos(catalogo.products, selectedCategory, searchTerm)
+  const recommendations = recomendarProductos(catalogo.products, selectedCategory)
+  const offers = catalogo.products.filter((p) => p.descuento_porcentaje > 0 && p.cantidad_disponible > 0)
   const selectedCategoryName = catalogo.categories.find((c) => c.id === selectedCategory)?.nombre || 'Todas'
 
   return (
     <>
-      <Header />
-      <Home products={filteredProducts} categories={catalogo.categories}
+      <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <Home recommendations={recommendations} offers={offers} searchTerm={searchTerm}
+        onClearFilters={() => { setSearchTerm(''); setSelectedCategory(null) }} products={filteredProducts} categories={catalogo.categories}
         selectedCategory={selectedCategory} selectedCategoryName={selectedCategoryName}
         onCategoryChange={setSelectedCategory} loading={loading} error={error}
         emptyCatalog={catalogo.products.length === 0} onRefresh={() => setReload((previous) => previous + 1)} />
